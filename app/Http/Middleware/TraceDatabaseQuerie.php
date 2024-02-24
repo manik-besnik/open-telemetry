@@ -19,7 +19,7 @@ class TraceDatabaseQuerie
         
         DB::listen(function ($query) {
            
-            
+            info("queris",["query" =>$query]);
            
         });
 
