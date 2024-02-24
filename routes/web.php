@@ -3,8 +3,9 @@
 use Illuminate\Support\Facades\Route;
 
 use Spatie\OpenTelemetry\Facades\Measure;
+use App\OpenTelemetry\BaseTracer;
 
-use App\Models\Trancation;
+use App\Models\Transaction;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -24,21 +25,30 @@ Route::get('/', function () {
 Route::get('/trace', function () {
     
 
-
-    Measure::start('parent');
+    Measure::start('trancation');
+    /** @var BaseTracer $tracer */
+    $tracer = BaseTracer::getTracer();
+    $span = $tracer->spanBuilder("trancation")->startSpan();
+    $spanScope = $span->activate();
     
-    // $trancation = new Trancation();
+    $transaction = new Transaction();
 
-    // $trancation->trancation_type = "deposit";
-    // $trancation->amount = 100;
+    $transaction->trancation_type = "deposit";
+    $transaction->amount = 100;
 
-    // $trancation->save();
+    $transaction->save();
 
 
 
-    sleep(1);
-    Measure::stop('parent');
+    $span->end();
+    
+    $spanScope->detach();
 
-    return "Measure With Open Telemetry";
+    
+    Measure::stop('trancation');
+
+    return response()->json(Transaction::query()->get());
+
+
 });
 

@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $trancation_type
  * @property int $amount
  */
-class Trancation extends Model
+class Transaction extends Model
 {
     use HasFactory;
 

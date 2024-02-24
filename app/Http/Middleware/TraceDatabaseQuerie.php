@@ -13,17 +13,18 @@ class TraceDatabaseQuerie
     public function handle($request, Closure $next)
     {  
         
-        Measure::start("mysql")->tags([
-            'Mysql' => "No Data"
-        ]);        
+           
         
-        DB::listen(function ($query) {
-           
-            info("queris",["query" =>$query]);
-           
-        });
+        DB::listen(function () { 
 
-        Measure::stop('mysql');
+            Measure::start("mysql")->tags([
+                'Mysql' => "No Data"
+            ]);    
+            
+
+            Measure::stop("mysql");
+            
+        });
 
         return $next($request);
 
