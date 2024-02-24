@@ -2,6 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 
+use Spatie\OpenTelemetry\Facades\Measure;
+
+use App\Models\Trancation;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -13,6 +16,29 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+
 Route::get('/', function () {
+    
     return view('welcome');
 });
+Route::get('/trace', function () {
+    
+
+
+    Measure::start('parent');
+    
+    // $trancation = new Trancation();
+
+    // $trancation->trancation_type = "deposit";
+    // $trancation->amount = 100;
+
+    // $trancation->save();
+
+
+
+    sleep(1);
+    Measure::stop('parent');
+
+    return "Measure With Open Telemetry";
+});
+

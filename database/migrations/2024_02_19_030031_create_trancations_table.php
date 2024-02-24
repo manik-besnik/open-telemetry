@@ -14,7 +14,6 @@ return new class extends Migration
         Schema::create('trancations', function (Blueprint $table)
         {
             $table->id();
-            $table->foreignId('user_id');
             $table->string('trancation_type');
             $table->unsignedBigInteger('amount');
             $table->timestamps();
