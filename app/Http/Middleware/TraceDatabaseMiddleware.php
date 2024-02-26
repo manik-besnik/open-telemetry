@@ -43,6 +43,17 @@ class TraceDatabaseMiddleware
            
         });
 
+        DB::listen(function ($query) { 
+          
+        
+            info("query",['sql'=> $query->sql,'binding'=> $query->binding,'time' => $query->time]);
+ 
+     
+            
+         });
+
+
+
         // Redis::enableEvents();
 
         // Redis::listen(function ($eventName, $data) {
